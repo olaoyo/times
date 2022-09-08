@@ -1,8 +1,9 @@
 export const theme = {
   colors: {
     black: {
-      one: "#181B21",
-      two: "#21242B",
+      one:    "#181B21",
+      two:    "#21242B",
+      three:  "#1B1D22",
     },
 
     white: {
@@ -13,12 +14,15 @@ export const theme = {
       one:   "#C5C5C5",
       two:   "#B1B1B1",
       three: "#808080",
+      four:  "#868686",
+
     },
 
     gold: {
-      one: "#B1A48F",
-      two: "#8D7966",
-
+      one:    "#B1A48F",
+      two:    "#8D7966",
+      three:  "#A19278",
+      four:   "#9A836C",
     },
   },
 
@@ -43,11 +47,26 @@ export const theme = {
 
   lineHeights: {
     headers: {
-
+      l1: "7rem",
+      l2: "6rem",
     },
 
     paragraphs: {
       l1: "2.8rem",
+    }
+  },
+
+  icons: {
+    large: {
+      xxl: "6rem", 
+      xl:  "5rem", 
+      l:   "4rem", 
+    },
+
+    medium: {
+      xxm: "3rem",
+      xm:  "2rem",
+      m:   "1rem",
     }
   }
 };

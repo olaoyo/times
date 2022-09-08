@@ -44,11 +44,13 @@ export const User = styled.div`
 export const Cart = styled.div`
   grid-column: 1 / span 1;
 
-  font-size: ${({ theme }) => theme.fontSizes.headers.h7};
-  color: ${({ theme }) => theme.colors.grey.one};
-  font-weight: 500;
-  transform: scaleX(-1);
-  padding: 1rem 0 0 2rem;
+  span {
+    font-size: ${({ theme }) => theme.icons.medium.xxm};
+    color: ${({ theme }) => theme.colors.grey.one};
+    font-weight: 500;
+    transform: scaleX(-1);
+    padding: 1rem 0 0 2rem;
+  }
 `;
 
 export const Language = styled.select`

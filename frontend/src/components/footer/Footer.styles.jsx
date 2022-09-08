@@ -5,14 +5,14 @@ export const FooterStyles = styled.footer`
 
   display: grid;
   grid-template-columns: repeat(8, minmax(13rem, auto));
+
+  padding-bottom: 5rem;
 `;
 
 export const Times = styled.div`
   grid-column: 1 / span 2;
 
   display: grid;
-  /* grid-template-columns: repeat(1, minmax(26rem, 1fr)); */
-  /* grid-template-columns: repeat(1, 26rem); */
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(3, max-content);
   row-gap: 2rem;
@@ -41,13 +41,11 @@ export const Info = styled.div`
   grid-column: 4 / span 5;
 
   display: grid;
-  /* grid-template-columns: repeat(5, minmax(13rem, auto)); */
   grid-template-columns: repeat(3, max-content);
   column-gap: 3rem;
 `;
 
 export const SiteMap = styled.div`
-  /* grid-column: 1 / span 1; */
   display: grid;
   grid-template-rows: repeat(5, min-content);
   row-gap: 1.5rem;
@@ -67,7 +65,6 @@ export const Header = styled.p`
 `;
 
 export const Contact = styled.div`
-  /* grid-column: 2 / span 2; */
   display: grid;
   grid-template-rows: repeat(3, min-content);
   row-gap: 1.5rem;
@@ -108,7 +105,7 @@ export const SubscribeDiv = styled.div``;
 export const SubscribeInput = styled.input`
   width: 30.6rem;
   height: 5.5rem;
-  border: none;
+  border: 1px solid transparent;
   background-color: ${({ theme }) => theme.colors.black.two};
   color: ${({ theme }) => theme.colors.grey.three};
   font-size: ${({ theme }) => theme.fontSizes.headers.h8};
@@ -117,7 +114,6 @@ export const SubscribeInput = styled.input`
 
   &:focus {
     outline: none;
-    /* background-color: $color-blue-1; */
     box-shadow: 0 1rem 2rem rgba(${({ theme }) => theme.colors.gold.two}, 0.1);
     border: 1px solid ${({ theme }) => theme.colors.gold.two};
   }

@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
     body {
         font-family: 'Manrope', sans-serif;
         line-height: 1.6;
-        background-color: ${({ theme }) => theme.colors.black.one};
+        background-color: ${({ theme }) => theme.colors.black.three};
     } 
 `;
 
