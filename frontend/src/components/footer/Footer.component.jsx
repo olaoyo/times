@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
   FooterStyles,
   Times,
@@ -24,7 +26,9 @@ function Footer() {
   return (
     <FooterStyles>
       <Times>
-        <Logo>TIMES</Logo>
+        <Link to="/">
+          <Logo>TIMES</Logo>
+        </Link>
         <Paragraph>
           When it came near enough he perceived that it was not grass; there
           were no blades, but only purple roots the roots.
@@ -37,7 +41,9 @@ function Footer() {
         <SiteMap>
           <GoldenHeader>Site Map</GoldenHeader>
           <Header>Home</Header>
-          <Paragraph>Product</Paragraph>
+          <Link to="/products">
+            <Paragraph>Products</Paragraph>
+          </Link>
           <Paragraph>About</Paragraph>
           <Paragraph>Blog</Paragraph>
         </SiteMap>

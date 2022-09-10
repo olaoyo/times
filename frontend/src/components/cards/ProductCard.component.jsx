@@ -1,4 +1,5 @@
-import React from "react";
+import { Link } from "react-router-dom";
+
 import {
   Card,
   CardImage,
@@ -15,12 +16,14 @@ import {
 function ProductCard({ product }) {
   return (
     <Card>
-      <a href={`/product/${product._id}`}>
+      <Link to={`/product/${product._id}`}>
         <CardImage src={product.image} alt={product.brand} />
-      </a>
+      </Link>
       <CardDetails>
         <WatchNameAndPrice>
-          <WatchName>{product.name}</WatchName>
+          <Link to={`/product/${product._id}`}>
+            <WatchName>{product.name}</WatchName>
+          </Link>
           <WatchPrice>${product.price}</WatchPrice>
         </WatchNameAndPrice>
         <WatchDescription>{product.description}</WatchDescription>

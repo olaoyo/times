@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
   HeaderStyles,
   Navigation,
@@ -10,26 +12,43 @@ import {
   Auth,
 } from "./Header.styles.jsx";
 
+import { Outlet } from "react-router-dom";
+
 function Header() {
   return (
-    <HeaderStyles>
-      <Navigation>
-        <Logo>TIMES</Logo>
-        <NavMenu>WATCHES</NavMenu>
-        <NavMenu>ABOUT</NavMenu>
-        <NavMenu>STORE</NavMenu>
-      </Navigation>
-      <User>
-        <Cart>
-          <span className="material-symbols-outlined">shopping_cart</span>
-        </Cart>
-        <Language>
-          <Option>ENG</Option>
-          <Option>ESP</Option>
-        </Language>
-        <Auth>LOG IN</Auth>
-      </User>
-    </HeaderStyles>
+    <>
+      <HeaderStyles>
+        <Navigation>
+          <Link to="/">
+            <Logo>TIMES</Logo>
+          </Link>
+          <Link to="/products">
+            <NavMenu>WATCHES</NavMenu>
+          </Link>
+          <Link to="/about">
+            <NavMenu>ABOUT</NavMenu>
+          </Link>
+          <Link to="/products">
+            <NavMenu>STORE</NavMenu>
+          </Link>
+        </Navigation>
+        <User>
+          <Link to="/cart">
+            <Cart>
+              <span className="material-symbols-outlined">shopping_cart</span>
+            </Cart>
+          </Link>
+          <Language>
+            <Option>ENG</Option>
+            <Option>ESP</Option>
+          </Language>
+          <Link to="/auth">
+            <Auth>LOG IN</Auth>
+          </Link>
+        </User>
+      </HeaderStyles>
+      <Outlet />
+    </>
   );
 }
 

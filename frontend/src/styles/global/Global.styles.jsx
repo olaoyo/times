@@ -21,6 +21,15 @@ const GlobalStyles = createGlobalStyle`
         line-height: 1.6;
         background-color: ${({ theme }) => theme.colors.black.three};
     } 
+
+    a {
+        text-decoration: none;
+        color: ${({ theme }) => theme.colors.white.one};
+    }
+
+    * {
+        box-sizing: border-box;
+    }
 `;
 
 export default GlobalStyles;
