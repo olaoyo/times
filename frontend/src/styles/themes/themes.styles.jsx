@@ -24,6 +24,24 @@ export const theme = {
       three:  "#A19278",
       four:   "#9A836C",
     },
+
+    blue: {
+      one:    "#BBD2C5",
+      two:    "#536976",
+      three:  "#292E49",
+      four:   "#47597E",
+    },
+
+    green: {
+      one:    "#CBCAA5", 
+      two:    "#334D50",
+      three:  "#4E4B4C", 
+      four:   "#555354",
+    },
+
+    orange: {
+      one:    "#C68B59",
+    }
   },
 
   fontSizes: {

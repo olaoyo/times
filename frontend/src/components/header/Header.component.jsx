@@ -26,7 +26,7 @@ function Header() {
             <NavMenu>WATCHES</NavMenu>
           </Link>
           <Link to="/about">
-            <NavMenu>ABOUT</NavMenu>
+            <NavMenu>ABOUT US</NavMenu>
           </Link>
           <Link to="/products">
             <NavMenu>STORE</NavMenu>

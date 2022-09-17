@@ -24,12 +24,14 @@ export const Logo = styled.li`
   font-size: ${({ theme }) => theme.fontSizes.headers.h4};
   color: ${({ theme }) => theme.colors.white.one};
   font-weight: 800;
+  letter-spacing: 0.12rem;
 `;
 
 export const NavMenu = styled.li`
   font-size: ${({ theme }) => theme.fontSizes.headers.h7};
   color: ${({ theme }) => theme.colors.grey.one};
   font-weight: 500;
+  letter-spacing: 0.12rem;
 `;
 
 export const User = styled.div`

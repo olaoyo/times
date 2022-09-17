@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
   Card,
@@ -11,19 +11,20 @@ import {
   Buttons,
   BuyNowButton,
   AddToCartButton,
-} from "./ProductCard.styles";
+} from "./ProductCardDetails.styles";
 
-function ProductCard({ product }) {
+import products from "../../../products";
+
+function ProductCardDetails() {
+  const { productId } = useParams();
+  const product = products.find((p) => p._id === productId);
   return (
     <Card>
-      <Link to={`/product/${product._id}`}>
-        <CardImage src={product.image} alt={product.brand} />
-      </Link>
+      <CardImage src={product.image} alt={product.brand} />
+
       <CardDetails>
         <WatchNameAndPrice>
-          <Link to={`/product/${product._id}`}>
-            <WatchName>{product.name}</WatchName>
-          </Link>
+          <WatchName>{product.name}</WatchName>
           <WatchPrice>${product.price}</WatchPrice>
         </WatchNameAndPrice>
         <WatchDescription>{product.description}</WatchDescription>
@@ -36,4 +37,4 @@ function ProductCard({ product }) {
   );
 }
 
-export default ProductCard;
+export default ProductCardDetails;

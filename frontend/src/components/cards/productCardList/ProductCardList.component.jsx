@@ -1,6 +1,6 @@
 import { ProductCardListStyles } from "./ProductCardList.styles";
-import ProductCard from "./ProductCard.component";
-import products from "../../products";
+import ProductCard from "../productCard/ProductCard.component";
+import products from "../../../products";
 
 function ProductCardList() {
   return (

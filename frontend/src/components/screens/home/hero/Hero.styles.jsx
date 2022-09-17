@@ -55,6 +55,7 @@ export const HeroButton = styled.button`
   font-weight: 600;
   border: 3px solid ${({ theme }) => theme.colors.gold.four};
   background: ${({ theme }) => theme.colors.black.two};
+  letter-spacing: 0.12rem;
 `;
 
 export const HeroImage = styled.div`

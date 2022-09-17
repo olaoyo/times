@@ -8,7 +8,7 @@ import {
   ProductButtonGrid,
   ProductButton,
 } from "./Products.styles";
-import ProductCard from "../../../cards/ProductCard.component";
+import ProductCard from "../../../cards/productCard/ProductCard.component";
 import products from "../../../../products";
 
 function ProductCardListHome() {
