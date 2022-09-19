@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { useParams } from "react-router-dom";
 
 import {
@@ -27,11 +29,19 @@ import {
   AddToCartButton,
 } from "./ProductDetailsPurchase.styles";
 
-import products from "../../../../products";
+import axios from "axios";
 
 function ProductDetailsPurchase() {
   const { productId } = useParams();
-  const product = products.find((product) => product._id === productId);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    }
+    fetchProduct();
+  }, [productId]);
 
   return (
     <ProductDetailsPurchaseStyles>
@@ -80,13 +90,13 @@ function ProductDetailsPurchase() {
           </ProductDetailsPurchaseWatchFaceColorParagraph1>
           <ProductDetailsPurchaseWatchFaceColorCirclesGrid>
             <ProductDetailsPurchaseWatchFaceColorQuantityChange>
-              <span class="material-symbols-outlined">remove</span>
+              <span className="material-symbols-outlined">remove</span>
             </ProductDetailsPurchaseWatchFaceColorQuantityChange>
             <ProductDetailsPurchaseWatchFaceColorQuantity>
               1
             </ProductDetailsPurchaseWatchFaceColorQuantity>
             <ProductDetailsPurchaseWatchFaceColorQuantityChange>
-              <span class="material-symbols-outlined">add</span>
+              <span className="material-symbols-outlined">add</span>
             </ProductDetailsPurchaseWatchFaceColorQuantityChange>
           </ProductDetailsPurchaseWatchFaceColorCirclesGrid>
         </ProductDetailsPurchaseWatchFaceColor>

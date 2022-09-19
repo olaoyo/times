@@ -5,7 +5,7 @@ export const ProductDetailsAlsoLikeStyles = styled.div`
   display: grid;
   grid-template-rows: repeat(2, max-content);
   row-gap: 1.5rem;
-  margin-top: 8.5rem;
+  margin: 8.5rem 0 5.5rem 0;
 `;
 
 export const ProductDetailsAlsoLikeHeader = styled.h5`

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -11,7 +12,7 @@ import {
   ProductDetailsFeaturesImageParagraph,
 } from "./ProductDetailsFeatures.styles";
 
-import products from "../../../../products";
+import axios from "axios";
 
 import FeatureImage1 from "../../../../images/productDetails/features/Feature_1.jpg";
 import FeatureImage2 from "../../../../images/productDetails/features/Feature_2.jpg";
@@ -19,7 +20,15 @@ import FeatureImage3 from "../../../../images/productDetails/features/Feature_3.
 
 function ProductDetailsFeatures() {
   const { productId } = useParams();
-  const product = products.find((product) => product._id === productId);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    }
+    fetchProduct();
+  }, [productId]);
 
   return (
     <ProductDetailsFeaturesStyles>

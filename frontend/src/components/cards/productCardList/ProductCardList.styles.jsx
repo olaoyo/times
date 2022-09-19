@@ -8,6 +8,6 @@ export const ProductCardListStyles = styled.div`
   column-gap: 2rem;
   row-gap: 4rem;
   
-  padding: 6rem 0 15rem 0;
+  /* padding: 6rem 0 15rem 0; */
 `;
 

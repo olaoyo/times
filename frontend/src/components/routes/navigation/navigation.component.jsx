@@ -1,5 +1,3 @@
-import { Outlet } from "react-router-dom";
-
 import GlobalStyles from "../../../styles/global/Global.styles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../../../styles/themes/themes.styles";

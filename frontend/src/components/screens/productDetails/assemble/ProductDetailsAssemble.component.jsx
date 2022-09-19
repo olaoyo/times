@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -10,13 +11,21 @@ import {
   ProductDetailsAssembleButton,
 } from "./ProductDetailsAssemble.styles";
 
-import AssembleImage from "../../../../images/productDetails/assemble/Assemble Watch.jpg";
+import axios from "axios";
 
-import products from "../../../../products";
+import AssembleImage from "../../../../images/productDetails/assemble/Assemble Watch.jpg";
 
 function ProductDetailsAssemble() {
   const { productId } = useParams();
-  const product = products.find((product) => product._id === productId);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    }
+    fetchProduct();
+  }, [productId]);
 
   return (
     <ProductDetailsAssembleStyles>

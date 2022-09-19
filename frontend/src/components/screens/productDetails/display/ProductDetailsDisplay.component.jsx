@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -6,16 +7,24 @@ import {
   ProductDetailsDisplayParagraph,
   ProductDetailsDisplayImage,
   ProductDetailsDisplayCirclesGrid,
-  ProductDetailsDisplayCircles
+  ProductDetailsDisplayCircles,
 } from "./ProductDetailsDisplay.styles";
 
-import products from "../../../../products";
+import axios from "axios";
 
 import DisplayImage from "../../../../images/productDetails/display/Display Watch.jpg";
 
 function ProductDetailsDisplay() {
   const { productId } = useParams();
-  const product = products.find((product) => product._id === productId);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    }
+    fetchProduct();
+  }, [productId]);
 
   return (
     <ProductDetailsDisplayStyles>

@@ -6,6 +6,7 @@ import ProductDetailsFeatures from "./features/ProductDetailsFeatures.component"
 import ProductDetailsPurchase from "./purchase/ProductDetailsPurchase.component";
 import ProductDetailsAlsoLike from "./alsoLike/ProductDetailsAlsoLike.component";
 import ProductCardList from "../../cards/productCardList/ProductCardList.component";
+import { MarginBottom12Rem } from "../../utils/Utils.component";
 
 function ProductDetailsScreen() {
   return (
@@ -17,6 +18,7 @@ function ProductDetailsScreen() {
       <ProductDetailsPurchase />
       <ProductDetailsAlsoLike />
       <ProductCardList />
+      <MarginBottom12Rem />
     </>
   );
 }

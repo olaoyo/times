@@ -86,5 +86,28 @@ export const theme = {
       xm:  "2rem",
       m:   "1rem",
     }
+  },
+
+  utils: {
+    u1:  "1rem",
+    u2:  "2rem",
+    u3:  "3rem",
+    u4:  "4rem",
+    u5:  "5rem",
+    u6:  "6rem",
+    u7:  "7rem",
+    u8:  "8rem",
+    u9:  "9rem",
+    u10: "10rem",
+    u11: "11rem",
+    u12: "12rem",
+    u13: "13rem",
+    u14: "14rem",
+    u15: "15rem",
+    u16: "16rem",
+    u17: "17rem",
+    u18: "18rem",
+    u19: "19rem",
+    u20: "20rem",
   }
 };
