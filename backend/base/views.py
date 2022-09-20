@@ -3,7 +3,10 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from . models import Product
 from . products import products
+from . serializers import ProductSerializer
+
 
 @api_view(["GET"])
 def getRoutes(request):
@@ -25,14 +28,12 @@ def getRoutes(request):
 
 @api_view(["GET"])
 def getProducts(request):
-    return Response(products)
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
 @api_view(["GET"])
 def getProduct(request, watch_id):
-    product = None
-    for watch in products:
-        if watch["_id"] == watch_id:
-            product = watch
-            break
-
-    return Response(product)
+    product = Product.objects.get(_id=watch_id)
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
