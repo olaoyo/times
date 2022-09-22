@@ -1,24 +1,31 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ProductCardListStyles } from "./ProductCardList.styles";
 import ProductCard from "../productCard/ProductCard.component";
-import axios from "axios";
+import { listProducts } from "../../../actions/productsActions";
 
 function ProductCardList() {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const productsList = useSelector((state) => state.productsList);
+  const { products, loading, error } = productsList;
 
   useEffect(() => {
-    async function fetchProducts() {
-      const { data } = await axios.get("/api/products/");
-      setProducts(data);
-    }
-    fetchProducts();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
+  
   return (
     <ProductCardListStyles>
-      {products.map((product) => (
-        <ProductCard key={product._id} product={product} />
-      ))}
+      {
+        loading ? <h2>Loading...</h2>
+          : error ? <h3>{error}</h3> 
+            :
+            <>
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+            </>          
+      }      
     </ProductCardListStyles>
   );
 }
