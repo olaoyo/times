@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ProductCardListStyles } from "./ProductCardList.styles";
 import ProductCard from "../productCard/ProductCard.component";
 import { listProducts } from "../../../actions/productsActions";
+import Loader from "../../loader/Loader.component";
+import Message from "../../message/Message.component";
 
 function ProductCardList() {
   const dispatch = useDispatch();
@@ -17,8 +19,8 @@ function ProductCardList() {
   return (
     <ProductCardListStyles>
       {
-        loading ? <h2>Loading...</h2>
-          : error ? <h3>{error}</h3> 
+        loading ? <Loader />
+          : error ? <Message>{error}</Message> 
             :
             <>
             {products.map((product) => (
