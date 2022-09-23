@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { listProductDetails } from "../../../../actions/productsActions";
 
 import {
   ProductDetailsHeroStyles,
@@ -10,43 +11,52 @@ import {
   ProductDetailsHeroParagraphGrey,
   ProductDetailsHeroImage,
   ProductDetailsWatchImage,
+  ProductDetailsHeroCirclesGrid,
+  ProductDetailsHeroCircles
 } from "./ProductDetailsHero.styles";
 
-import axios from "axios";
+import Loader from "../../../loader/Loader.component";
+import Message from "../../../message/Message.component";
 
 function ProductDetailsHero() {
   const { productId } = useParams();
-  const [product, setProduct] = useState([]);
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading, error } = productDetails;
 
   useEffect(() => {
-    async function fetchProduct() {
-      const { data } = await axios.get(`/api/products/${productId}`);
-      setProduct(data);
-    }
-    fetchProduct();
-  }, [productId]);
+    dispatch(listProductDetails(productId));
+  }, [dispatch, productId]);
 
   return (
-    <ProductDetailsHeroStyles>
-      <ProductDetailsHeroText>
-        <ProductDetailsHeroParagraphGold>
-          Classic Watches
-        </ProductDetailsHeroParagraphGold>
-        <ProductDetailsHeroHeader>{product.name}</ProductDetailsHeroHeader>
-        <ProductDetailsHeroParagraphGrey>
-          {product.description}
-        </ProductDetailsHeroParagraphGrey>
-      </ProductDetailsHeroText>
-      <ProductDetailsHeroImage>
-        <ProductDetailsWatchImage src={product.imageDetails} />
-        <div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </ProductDetailsHeroImage>
-    </ProductDetailsHeroStyles>
+    <>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message>{error}</Message>
+      ) : (
+        <ProductDetailsHeroStyles>
+          <ProductDetailsHeroText>
+            <ProductDetailsHeroParagraphGold>
+              Classic Watches
+            </ProductDetailsHeroParagraphGold>
+            <ProductDetailsHeroHeader>{product.name}</ProductDetailsHeroHeader>
+            <ProductDetailsHeroParagraphGrey>
+              {product.description}
+            </ProductDetailsHeroParagraphGrey>
+          </ProductDetailsHeroText>
+          <ProductDetailsHeroImage>
+            <ProductDetailsWatchImage src={product.imageDetails} />
+            <ProductDetailsHeroCirclesGrid>
+              <ProductDetailsHeroCircles />
+              <ProductDetailsHeroCircles />
+              <ProductDetailsHeroCircles />
+              <ProductDetailsHeroCircles />
+            </ProductDetailsHeroCirclesGrid>
+          </ProductDetailsHeroImage>
+        </ProductDetailsHeroStyles>
+      )}
+    </>
   );
 }
 

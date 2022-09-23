@@ -75,3 +75,17 @@ export const ProductDetailsWatchImage = styled.img`
   width: 37.5rem;
   height: 49.397rem;
 `;
+
+export const ProductDetailsHeroCirclesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  column-gap: 1rem;
+  margin-top: -1rem;
+`;
+
+export const ProductDetailsHeroCircles = styled.div`
+  background-color: ${({ theme }) => theme.colors.gold.two};
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+`;

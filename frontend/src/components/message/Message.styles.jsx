@@ -5,6 +5,7 @@ export const MessageStyles = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
+  padding: 2rem 0 2rem 0;
 `;
 
 export const MessageText = styled.h1`
