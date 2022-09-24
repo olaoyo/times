@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { listProductDetails } from "../../../../actions/productsActions";
 
 import {
@@ -22,6 +22,7 @@ import {
   ProductDetailsPurchaseWatchFaceColorCircle4,
   ProductDetailsPurchaseWatchFaceColorCircle5,
   ProductDetailsPurchaseWatchFaceColorCircle6,
+  ProductDetailsPurchaseWatchFaceColorQuantityGrid,
   ProductDetailsPurchaseWatchFaceColorQuantityChange,
   ProductDetailsPurchaseWatchFaceColorQuantity,
   ProductDetailsPurchaseWatchFaceColorParagraph2,
@@ -34,7 +35,11 @@ import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
 
 function ProductDetailsPurchase() {
+  const [qty, setQty] = useState(1);
+  
   const { productId } = useParams();
+  const navigate = useNavigate()
+  
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
@@ -42,6 +47,22 @@ function ProductDetailsPurchase() {
   useEffect(() => {
     dispatch(listProductDetails(productId));
   }, [dispatch, productId]);
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${productId}?qty=${qty}/`);
+  };
+
+  const addQtyHandler = () => {
+    const addQty = qty + 1;
+    setQty(addQty);
+  };
+
+  const removeQtyHandler = () => {
+    const removeQty = qty - 1;
+    qty > 1 ? setQty(removeQty) : setQty(1);
+  };
+
+  const qtyChangeHandler = (event) => setQty(event.target.value);
 
   return (
     <>
@@ -94,24 +115,33 @@ function ProductDetailsPurchase() {
               <ProductDetailsPurchaseWatchFaceColorParagraph1>
                 Choose Watch Quantity
               </ProductDetailsPurchaseWatchFaceColorParagraph1>
-              <ProductDetailsPurchaseWatchFaceColorCirclesGrid>
-                <ProductDetailsPurchaseWatchFaceColorQuantityChange>
+              <ProductDetailsPurchaseWatchFaceColorQuantityGrid>
+                <ProductDetailsPurchaseWatchFaceColorQuantityChange
+                  onClick={removeQtyHandler}
+                >
                   <span className="material-symbols-outlined">remove</span>
                 </ProductDetailsPurchaseWatchFaceColorQuantityChange>
-                <ProductDetailsPurchaseWatchFaceColorQuantity>
-                  1
+                <ProductDetailsPurchaseWatchFaceColorQuantity
+                  value={qty}
+                  onChange={qtyChangeHandler}
+                >
+                  {qty}
                 </ProductDetailsPurchaseWatchFaceColorQuantity>
-                <ProductDetailsPurchaseWatchFaceColorQuantityChange>
+                <ProductDetailsPurchaseWatchFaceColorQuantityChange
+                  onClick={addQtyHandler}
+                >
                   <span className="material-symbols-outlined">add</span>
                 </ProductDetailsPurchaseWatchFaceColorQuantityChange>
-              </ProductDetailsPurchaseWatchFaceColorCirclesGrid>
+              </ProductDetailsPurchaseWatchFaceColorQuantityGrid>
             </ProductDetailsPurchaseWatchFaceColor>
             <ProductDetailsPurchaseWatchFaceColorParagraph2>
               {product.description}
             </ProductDetailsPurchaseWatchFaceColorParagraph2>
             <Buttons>
               <BuyNowButton>BUY NOW</BuyNowButton>
-              <AddToCartButton>ADD TO CART</AddToCartButton>
+              <AddToCartButton onClick={addToCartHandler}>
+                ADD TO CART
+              </AddToCartButton>
             </Buttons>
           </ProductDetailsPurchaseTextGrid>
         </ProductDetailsPurchaseStyles>
