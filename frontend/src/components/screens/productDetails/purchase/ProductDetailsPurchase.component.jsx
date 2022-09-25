@@ -49,7 +49,7 @@ function ProductDetailsPurchase() {
   }, [dispatch, productId]);
 
   const addToCartHandler = () => {
-    navigate(`/cart/${productId}?qty=${qty}/`);
+    navigate(`/cart/${productId}?qty=${qty}`);
   };
 
   const addQtyHandler = () => {

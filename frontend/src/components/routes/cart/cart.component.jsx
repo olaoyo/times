@@ -1,9 +1,7 @@
-
+import CartScreen from "../../screens/cart/CartScreen";
 
 function Cart() {
-  return (
-    <div>Cart</div>
-  )
+  return <CartScreen />;
 }
 
-export default Cart
+export default Cart;
