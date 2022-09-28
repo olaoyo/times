@@ -8,6 +8,7 @@ export const theme = {
 
     white: {
       one: "#ffffff",
+      two: "#C4C4C4",
     },
 
     grey: {
@@ -23,6 +24,7 @@ export const theme = {
       two:    "#8D7966",
       three:  "#A19278",
       four:   "#9A836C",
+      five:   "#594E3B",
     },
 
     blue: {

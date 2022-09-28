@@ -1,9 +1,15 @@
-import Cart from "./cart/Cart.component"
+import CartHead from "./cartHead/CartHead.component";
+import CartBody from "./cartBody/CartBody.component";
+import CartTotal from "./cartTotal/CartTotal.component"
 
 function CartScreen() {
   return (
-    <Cart />
-  )
+    <>
+      <CartHead />
+      <CartBody />
+      <CartTotal />
+    </>
+  );
 }
 
-export default CartScreen
+export default CartScreen;

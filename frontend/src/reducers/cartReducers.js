@@ -1,4 +1,8 @@
-import { CART_ADD_ITEM } from "../constants/cartConstants";
+import {
+  CART_ADD_ITEM,
+  CART_INCREASE_QTY,
+  CART_DECREASE_QTY,
+} from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -21,6 +25,30 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           cartItems: [...state.cartItems, item],
         };
       }
+
+    case CART_INCREASE_QTY:
+      const productIdAdd = action.payload;
+
+      return {
+        ...state,
+        cartItems: state.cartItems.map((watch) =>
+          watch.product === productIdAdd
+            ? { qty: watch.qty++, ...watch }
+            : watch
+        ), //product=_id
+      };
+
+    case CART_DECREASE_QTY:
+      const productIdMinus = action.payload;
+
+      return {
+        ...state,
+        cartItems: state.cartItems.map((watch) =>
+          watch.product === productIdMinus && watch.qty > 1
+            ? { qty: watch.qty--, ...watch }
+            : watch
+        ), //product=_id
+      };
 
     default:
       return state;

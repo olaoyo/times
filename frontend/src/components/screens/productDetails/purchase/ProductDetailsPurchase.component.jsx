@@ -33,13 +33,14 @@ import {
 
 import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
+import { addToCart, increaseItemQty, decreaseItemQty  } from "../../../../actions/cartActions";
 
 function ProductDetailsPurchase() {
   const [qty, setQty] = useState(1);
-  
+
   const { productId } = useParams();
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
@@ -47,10 +48,20 @@ function ProductDetailsPurchase() {
   useEffect(() => {
     dispatch(listProductDetails(productId));
   }, [dispatch, productId]);
+  
 
   const addToCartHandler = () => {
     navigate(`/cart/${productId}?qty=${qty}`);
   };
+
+  // const cart = useSelector((state) => state.cart);
+  // const { cartItems } = cart;
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(addToCart(productId, 1));
+    }
+  }, [dispatch, productId]);
 
   const addQtyHandler = () => {
     const addQty = qty + 1;
@@ -151,3 +162,17 @@ function ProductDetailsPurchase() {
 }
 
 export default ProductDetailsPurchase;
+
+/*
+<>
+{cartItems.map((item) => (
+  <ProductDetailsPurchaseWatchFaceColorQuantity
+    key={item.product}
+    value={item.qty}
+    onChange={qtyChangeHandler}
+  >
+    {item.qty}
+  </ProductDetailsPurchaseWatchFaceColorQuantity>
+))}
+</>
+*/
