@@ -75,4 +75,8 @@ export const AddToCartButton = styled.button`
   letter-spacing: .12rem;
   border: 3px solid ${({ theme }) => theme.colors.gold.four};
   background: ${({ theme }) => theme.colors.black.two};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

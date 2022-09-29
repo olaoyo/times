@@ -50,18 +50,27 @@ function ProductDetailsPurchase() {
   }, [dispatch, productId]);
   
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (id, qty) => {
+    dispatch(addToCart(id, qty));
     navigate(`/cart/${productId}?qty=${qty}`);
   };
+
+  // BUG reworked the add to cart handler above
+  // const addToCartHandler = () => {
+  //   navigate(`/cart/${productId}?qty=${qty}`);
+  // };
+
+   // BUG added to cart on navigating to productId url
+  // useEffect(() => {
+  //   if (productId) {
+  //     dispatch(addToCart(productId, 1));
+  //   }
+  // }, [dispatch, productId]);
 
   // const cart = useSelector((state) => state.cart);
   // const { cartItems } = cart;
 
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, 1));
-    }
-  }, [dispatch, productId]);
+ 
 
   const addQtyHandler = () => {
     const addQty = qty + 1;
@@ -150,7 +159,7 @@ function ProductDetailsPurchase() {
             </ProductDetailsPurchaseWatchFaceColorParagraph2>
             <Buttons>
               <BuyNowButton>BUY NOW</BuyNowButton>
-              <AddToCartButton onClick={addToCartHandler}>
+              <AddToCartButton onClick={() => addToCartHandler(product._id, qty)}>
                 ADD TO CART
               </AddToCartButton>
             </Buttons>

@@ -16,7 +16,7 @@ import {
 } from "./CartBody.styles";
 
 import Message from "../../../message/Message.component";
-import { addToCart, increaseItemQty, decreaseItemQty } from "../../../../actions/cartActions";
+import { addToCart, removeFromCart, increaseItemQty, decreaseItemQty } from "../../../../actions/cartActions";
 
 function CartBody() {
   const { productId } = useParams();
@@ -34,16 +34,16 @@ function CartBody() {
   //   }
   // }, [dispatch, productId]);
 
-  // const addQtyHandler = () => {
-  //   console.log("Add product");
-  // };
+  const increaseQtyHandler = (id) => {
+    dispatch(increaseItemQty(id));
+  };
 
-  // const removeQtyHandler = () => {
-  //   console.log("Remove product");
-  // };
+  const decreaseQtyHandler = (id) => {
+    dispatch(decreaseItemQty(id));
+  };
 
   const removeFromCartHandler = (id) => {
-    console.log("remove:", id);
+    dispatch(removeFromCart(id));
   }
 
   return (
@@ -55,12 +55,13 @@ function CartBody() {
           {cartItems.map((item) => (
             <CartBodyStyles key={item.product}>
               <CartProductGrid>
+                {/* BUG Link increases div size. to={`/products/${item._id}`} (orproductId do not work*/}
                 <CartProductImage src={item.image} />
                 <CartProductText>{item.name}</CartProductText>
               </CartProductGrid>
               <CartUnitPrice>${item.price}</CartUnitPrice>
               <CartQuantityGrid>
-                <CartQuantityChange onClick={() => dispatch(decreaseItemQty(item.product))}>
+                <CartQuantityChange onClick={() => decreaseQtyHandler(item.product)}>
                   <span className="material-symbols-outlined">remove</span>
                 </CartQuantityChange>
                 <CartQuantity
@@ -68,7 +69,7 @@ function CartBody() {
                 >
                   {item.qty}
                 </CartQuantity>
-                <CartQuantityChange onClick={() => dispatch(increaseItemQty(item.product))}>
+                <CartQuantityChange onClick={() => increaseQtyHandler(item.product)}>
                   <span className="material-symbols-outlined">add</span>
                 </CartQuantityChange>
               </CartQuantityGrid>
