@@ -40,7 +40,9 @@ function Footer() {
       <Info>
         <SiteMap>
           <GoldenHeader>Site Map</GoldenHeader>
-          <Header>Home</Header>
+          <Link to="/">
+            <Header>Home</Header>
+          </Link>
           <Link to="/products">
             <Paragraph>Products</Paragraph>
           </Link>

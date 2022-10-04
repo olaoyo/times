@@ -42,7 +42,7 @@ function Header() {
             <Option>ENG</Option>
             <Option>ESP</Option>
           </Language>
-          <Link to="/auth">
+          <Link to="/login">
             <Auth>LOG IN</Auth>
           </Link>
         </User>

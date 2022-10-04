@@ -4,12 +4,14 @@ import Home from "./components/routes/home/home.component";
 import Products from "./components/routes/products/products.component";
 import ProductDetails from "./components/routes/productDetails/productDetails.component";
 import Cart from "./components/routes/cart/cart.component";
+import Login from "./components/routes/auth/login.component";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/cart/" element={<Cart />} />
