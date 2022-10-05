@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/userActions";
 
 import {
   HeaderStyles,
@@ -7,14 +9,23 @@ import {
   Logo,
   NavMenu,
   Cart,
-  Language,
-  Option,
-  Auth,
+  Profile,
+  Space,
+  AuthButton,
 } from "./Header.styles.jsx";
 
 import { Outlet } from "react-router-dom";
 
 function Header() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
       <HeaderStyles>
@@ -32,19 +43,35 @@ function Header() {
             <NavMenu>STORE</NavMenu>
           </Link>
         </Navigation>
-        <User>
+        <Cart>
           <Link to="/cart">
-            <Cart>
-              <span className="material-symbols-outlined">shopping_cart</span>
-            </Cart>
+            <span className="material-symbols-outlined">shopping_cart</span>
           </Link>
-          <Language>
-            <Option>ENG</Option>
-            <Option>ESP</Option>
-          </Language>
-          <Link to="/login">
-            <Auth>LOG IN</Auth>
-          </Link>
+        </Cart>
+        <User>
+          {userInfo ? (
+            <>
+              <Profile>
+                Welcome&nbsp;&nbsp;&nbsp;
+                <Link to="/profile">{userInfo.name}</Link>
+              </Profile>
+              <AuthButton
+                title={userInfo.name}
+                id="username"
+                onClick={logoutHandler}
+              >
+                LOGOUT
+              </AuthButton>
+            </>
+          ) : (
+            <>
+              <Space>&nbsp;&nbsp;&nbsp;</Space>
+              <Space>&nbsp;&nbsp;&nbsp;</Space>
+              <Link to="/login">
+                <AuthButton>LOG IN</AuthButton>
+              </Link>
+            </>
+          )}
         </User>
       </HeaderStyles>
       <Outlet />
