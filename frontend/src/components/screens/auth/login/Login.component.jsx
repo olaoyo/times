@@ -47,6 +47,7 @@ function Login() {
       <LoginStyles>
         <LoginHeader>Sign In To Virtual Luxury</LoginHeader>
         <LoginForm onSubmit={submitHandler}>
+
           <LoginInputAndLabelGrid>
             <LoginLabel>Email</LoginLabel>
             <LoginInput
@@ -55,9 +56,10 @@ function Login() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               id="email"
-              // required
+              required
             />
           </LoginInputAndLabelGrid>
+          
           <LoginInputAndLabelGrid>
             <LoginLabel>Password</LoginLabel>
             <LoginInput
@@ -66,13 +68,16 @@ function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               id="password"
-              // required
+              required
             />
           </LoginInputAndLabelGrid>
+
           <SignInButton type="submit">Sign In</SignInButton>
+
         </LoginForm>
+        
         <Register>
-          New Customer?
+          New Customer?&nbsp;&nbsp;
           <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
             Register
           </Link>
