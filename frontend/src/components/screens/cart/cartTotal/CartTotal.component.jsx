@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import {
@@ -14,7 +14,7 @@ import {
 function CartTotal() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const checkoutHandler = () => {
     navigate("/login?redirect=shipping")
