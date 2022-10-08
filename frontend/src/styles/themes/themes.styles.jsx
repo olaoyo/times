@@ -16,6 +16,7 @@ export const theme = {
       two:   "#B1B1B1",
       three: "#808080",
       four:  "#868686",
+      five:  "#7D7D7D", 
 
     },
 

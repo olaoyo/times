@@ -10,6 +10,7 @@ import {
   ShippingButton,
 } from "./Shipping.styles";
 import { useDispatch, useSelector } from "react-redux";
+import CheckoutSteps from "../../../checkoutSteps/CheckoutSteps.component";
 import { saveShippingAddress } from "../../../../actions/cartActions";
 
 function Shipping() {
@@ -28,64 +29,63 @@ function Shipping() {
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    navigate("/payment")
+    navigate("/payment");
   };
 
   return (
-    <ShippingStyles>
-      <ShippingHeader>Shipping</ShippingHeader>
-      <ShippingForm onSubmit={submitHandler}>
-        <ShippingInputAndLabelGrid>
-          <ShippingLabel>Address</ShippingLabel>
-          <ShippingInput
-            type="text"
-            placeholder="Enter Your Address"
-            value={address ? address : ""}
-            onChange={(event) => setAddress(event.target.value)}
-            id="address"
-            required
-          />
-        </ShippingInputAndLabelGrid>
-
-        <ShippingInputAndLabelGrid>
-          <ShippingLabel>City</ShippingLabel>
-          <ShippingInput
-            type="text"
-            placeholder="Enter Your City"
-            value={city ? city : ""}
-            onChange={(event) => setCity(event.target.value)}
-            id="city"
-            required
-          />
-        </ShippingInputAndLabelGrid>
-
-        <ShippingInputAndLabelGrid>
-          <ShippingLabel>Postal Code</ShippingLabel>
-          <ShippingInput
-            type="text"
-            placeholder="Enter Your Postal Code"
-            value={postalCode ? postalCode : ""}
-            onChange={(event) => setPostalCode(event.target.value)}
-            id="postalCode"
-            required
-          />
-        </ShippingInputAndLabelGrid>
-
-        <ShippingInputAndLabelGrid>
-          <ShippingLabel>Country</ShippingLabel>
-          <ShippingInput
-            type="text"
-            placeholder="Enter Your Country"
-            value={country ? country : ""}
-            onChange={(event) => setCountry(event.target.value)}
-            id="country"
-            required
-          />
-        </ShippingInputAndLabelGrid>
-
-        <ShippingButton type="submit">Continue</ShippingButton>
-      </ShippingForm>
-    </ShippingStyles>
+    <>
+      <CheckoutSteps step1 step2 />
+      <ShippingStyles>
+        <ShippingHeader>Shipping</ShippingHeader>
+        <ShippingForm onSubmit={submitHandler}>
+          <ShippingInputAndLabelGrid>
+            <ShippingLabel>Address</ShippingLabel>
+            <ShippingInput
+              type="text"
+              placeholder="Enter Your Address"
+              value={address ? address : ""}
+              onChange={(event) => setAddress(event.target.value)}
+              id="address"
+              required
+            />
+          </ShippingInputAndLabelGrid>
+          <ShippingInputAndLabelGrid>
+            <ShippingLabel>City</ShippingLabel>
+            <ShippingInput
+              type="text"
+              placeholder="Enter Your City"
+              value={city ? city : ""}
+              onChange={(event) => setCity(event.target.value)}
+              id="city"
+              required
+            />
+          </ShippingInputAndLabelGrid>
+          <ShippingInputAndLabelGrid>
+            <ShippingLabel>Postal Code</ShippingLabel>
+            <ShippingInput
+              type="text"
+              placeholder="Enter Your Postal Code"
+              value={postalCode ? postalCode : ""}
+              onChange={(event) => setPostalCode(event.target.value)}
+              id="postalCode"
+              required
+            />
+          </ShippingInputAndLabelGrid>
+          <ShippingInputAndLabelGrid>
+            <ShippingLabel>Country</ShippingLabel>
+            <ShippingInput
+              type="text"
+              placeholder="Enter Your Country"
+              value={country ? country : ""}
+              onChange={(event) => setCountry(event.target.value)}
+              id="country"
+              required
+            />
+          </ShippingInputAndLabelGrid>
+          <ShippingButton type="submit">Continue</ShippingButton>
+        </ShippingForm>
+      </ShippingStyles>
+    </>
   );
 }
 
