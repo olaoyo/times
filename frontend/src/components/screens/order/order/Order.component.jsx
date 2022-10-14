@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { PayPalButton } from "react-paypal-button-v2";
 import Message from "../../../message/Message.component";
 import MessageSmall from "../../../messageSmall/MessageSmall.component";
 import Loader from "../../../loader/Loader.component"
@@ -33,26 +34,57 @@ import {
   OrderSummaryParagraph,
   OrderSummaryAmount,
   OrderSummaryLine,
+  OrderSummaryPaymentGrid,
 } from "./Order.styles";
-import { getOrderDetails } from "../../../../actions/orderActions";
+import { getOrderDetails, payOrder } from "../../../../actions/orderActions";
+import { ORDER_PAY_RESET } from "../../../../constants/orderConstants";
 
 function Order() {
   const { orderId } = useParams()
   const dispatch = useDispatch();
 
+  const [sdkReady, setSdkReady] = useState(false);
+
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
 
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
 
   if (!loading && !error) {
       order.watchesPrice = order.orderItems.reduce((acc, watch) => acc + watch.price * watch.qty, 0).toFixed(0);
   }
+
+
+  const addPayPalScript = () => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://www.paypal.com/sdk/js?client-id=AYCfdSRtazqRIpFpdQhabvrvafA-VWO7tb0-lwtc7lCdZNQaGBPnXaIpZduIc4jjW6POPo-borhesW30";
+    script.async = true;
+    script.onload = () => {
+      setSdkReady(true);
+    }
+    document.body.appendChild(script);
+  }
+
   
   useEffect(() => {
-    if (!order || order._id !== +orderId) {
+    if (!order || successPay || order._id !== +orderId) {
+        dispatch({ type: ORDER_PAY_RESET });
         dispatch(getOrderDetails(orderId));
-    }       
-  }, [dispatch, order, orderId])
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
+    }      
+  }, [dispatch, order, orderId, successPay]);
+
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(orderId, paymentResult));
+  }
 
 
   return loading ? (
@@ -136,17 +168,7 @@ function Order() {
           <OrderSummaryContentGrid>
             <OrderSummaryParagraphGrid>
               <OrderSummaryParagraph>
-                Name:
-              </OrderSummaryParagraph>
-              <OrderSummaryAmount>{order.user.name}</OrderSummaryAmount>
-            </OrderSummaryParagraphGrid>
-            <OrderSummaryLine>&nbsp;</OrderSummaryLine>
-          </OrderSummaryContentGrid>
-
-          <OrderSummaryContentGrid>
-            <OrderSummaryParagraphGrid>
-              <OrderSummaryParagraph>
-                Email:
+              {order.user.name}
               </OrderSummaryParagraph>
               <OrderSummaryAmount>{order.user.email}</OrderSummaryAmount>
             </OrderSummaryParagraphGrid>
@@ -166,17 +188,9 @@ function Order() {
           <OrderSummaryContentGrid>
             <OrderSummaryParagraphGrid>
               <OrderSummaryParagraph>
-                Shipping:
+              Tax (5%): ${order.taxPrice}
               </OrderSummaryParagraph>
-              <OrderSummaryAmount>${order.shippingPrice}</OrderSummaryAmount>
-            </OrderSummaryParagraphGrid>
-            <OrderSummaryLine>&nbsp;</OrderSummaryLine>
-          </OrderSummaryContentGrid>
-
-          <OrderSummaryContentGrid>
-            <OrderSummaryParagraphGrid>
-              <OrderSummaryParagraph>Tax (5%):</OrderSummaryParagraph>
-              <OrderSummaryAmount>${order.taxPrice}</OrderSummaryAmount>
+              <OrderSummaryAmount>Shipping: ${order.shippingPrice}</OrderSummaryAmount>
             </OrderSummaryParagraphGrid>
             <OrderSummaryLine>&nbsp;</OrderSummaryLine>
           </OrderSummaryContentGrid>
@@ -233,6 +247,24 @@ function Order() {
               
             }
             <OrderSummaryLine>&nbsp;</OrderSummaryLine>
+          </OrderSummaryContentGrid>
+          
+          <OrderSummaryContentGrid>
+            {!order.isPaid && (
+              <OrderSummaryPaymentGrid>
+              {loadingPay && <Loader />}
+
+              {!sdkReady ? (
+                <Loader />
+              ) : (
+                <PayPalButton
+                  amount={order.totalPrice}
+                  onSuccess={successPaymentHandler}
+
+                 />
+              )}
+            </OrderSummaryPaymentGrid>
+            )} 
           </OrderSummaryContentGrid>
 
         </OrderSummaryGrid>

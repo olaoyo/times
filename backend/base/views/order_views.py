@@ -89,7 +89,7 @@ def updateOrderToPaid(request, order_id):
     order = Order.objects.get(_id=order_id)
 
     order.isPaid = True
-    order.paidAt = datetime()
-    
+    order.paidAt = datetime.now()  
     order.save()
+
     return Response("We appreciate your taste in ⌚. Order was paid")

@@ -182,4 +182,8 @@ export const OrderSummaryLine = styled.div`
   }
 `;
 
+export const OrderSummaryPaymentGrid = styled.div`
+  display: grid;
+  padding: 2.3rem 3.5rem;
+`;
 
