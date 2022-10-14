@@ -6,32 +6,32 @@ import Message from "../../../message/Message.component";
 import {
   // Shipping & Payment Method
   PlaceOrderStyles,
-  ProductOrderDetailsGrid,
-  ProductOrderAndPaymentDetailsGrid,
-  ProductOrderPlaceOrderAndLineGrid,
-  ProductOrderPlaceOrder,
-  ProductOrderPaymentMethod,
-  ProductOrderHeader,
-  ProductOrderParagraph,
-  ProductOrderLine,
+  PlaceOrderDetailsGrid,
+  PlaceOrderAndPaymentDetailsGrid,
+  PlaceOrderPlaceOrderAndLineGrid,
+  PlaceOrderPlaceOrder,
+  PlaceOrderPaymentMethod,
+  PlaceOrderHeader,
+  PlaceOrderParagraph,
+  PlaceOrderLine,
 
   // Watches, Qty & Price
-  ProductOrderWatchesAndLineGrid,
-  ProductOrderWatchesGrid,
-  ProductOrderWatchImage,
-  ProductOrderWatchName,
-  ProductOrderQtyAndPriceGrid,
-  ProductOrderQtyAndPrice,
+  PlaceOrderWatchesAndLineGrid,
+  PlaceOrderWatchesGrid,
+  PlaceOrderWatchImage,
+  PlaceOrderWatchName,
+  PlaceOrderQtyAndPriceGrid,
+  PlaceOrderQtyAndPrice,
 
   // Order Summary
-  ProductOrderSummaryGrid,
-  ProductOrderSummaryContentGrid,
-  ProductOrderSummaryHeader,
-  ProductOrderSummaryParagraphGrid,
-  ProductOrderSummaryParagraph,
-  ProductOrderSummaryAmount,
-  ProductOrderSummaryLine,
-  ProductOrderSummaryButton,
+  PlaceOrderSummaryGrid,
+  PlaceOrderSummaryContentGrid,
+  PlaceOrderSummaryHeader,
+  PlaceOrderSummaryParagraphGrid,
+  PlaceOrderSummaryParagraph,
+  PlaceOrderSummaryAmount,
+  PlaceOrderSummaryLine,
+  PlaceOrderSummaryButton,
 } from "./PlaceOrder.styles";
 import CheckoutSteps from "../../../checkoutSteps/CheckoutSteps.component";
 import { createOrder } from "../../../../actions/orderActions";
@@ -86,27 +86,27 @@ function PlaceOrder() {
       {/* SHIPPING & PAYMENT METHOD */}
 
       <PlaceOrderStyles>
-        <ProductOrderDetailsGrid>
-          <ProductOrderPlaceOrderAndLineGrid>
-            <ProductOrderAndPaymentDetailsGrid>
-              <ProductOrderPlaceOrder>
-                <ProductOrderHeader>Place Order</ProductOrderHeader>
-                <ProductOrderParagraph>
+        <PlaceOrderDetailsGrid>
+          <PlaceOrderPlaceOrderAndLineGrid>
+            <PlaceOrderAndPaymentDetailsGrid>
+              <PlaceOrderPlaceOrder>
+                <PlaceOrderHeader>Place Order</PlaceOrderHeader>
+                <PlaceOrderParagraph>
                   Shipping: {cart.shippingAddress.address},{" "}
                   {cart.shippingAddress.city} {cart.shippingAddress.postalCode},{" "}
                   {cart.shippingAddress.country}
-                </ProductOrderParagraph>
-              </ProductOrderPlaceOrder>
-              <ProductOrderPaymentMethod>
-                <ProductOrderHeader>Payment Method</ProductOrderHeader>
-                <ProductOrderParagraph>
+                </PlaceOrderParagraph>
+              </PlaceOrderPlaceOrder>
+              <PlaceOrderPaymentMethod>
+                <PlaceOrderHeader>Payment Method</PlaceOrderHeader>
+                <PlaceOrderParagraph>
                   Method: {paymentMethod}
-                </ProductOrderParagraph>
-              </ProductOrderPaymentMethod>
-            </ProductOrderAndPaymentDetailsGrid>
+                </PlaceOrderParagraph>
+              </PlaceOrderPaymentMethod>
+            </PlaceOrderAndPaymentDetailsGrid>
 
-            <ProductOrderLine>&nbsp;</ProductOrderLine>
-          </ProductOrderPlaceOrderAndLineGrid>
+            <PlaceOrderLine>&nbsp;</PlaceOrderLine>
+          </PlaceOrderPlaceOrderAndLineGrid>
 
           {/* WATCHES, QTY & PRICE */}
 
@@ -115,88 +115,88 @@ function PlaceOrder() {
           ) : (
             <>
               {cart.cartItems.map((watch, index) => (
-                <ProductOrderWatchesAndLineGrid key={index}>
-                  <ProductOrderWatchesGrid>
-                    <ProductOrderWatchImage
+                <PlaceOrderWatchesAndLineGrid key={index}>
+                  <PlaceOrderWatchesGrid>
+                    <PlaceOrderWatchImage
                       src={watch.image}
                       alt={watch.name}
                     />
-                    <ProductOrderWatchName>
+                    <PlaceOrderWatchName>
                       <Link to={`/products/${watch.product}`}>
                         {watch.name}
                       </Link>
-                    </ProductOrderWatchName>
-                    <ProductOrderQtyAndPriceGrid>
-                      <ProductOrderQtyAndPrice>
+                    </PlaceOrderWatchName>
+                    <PlaceOrderQtyAndPriceGrid>
+                      <PlaceOrderQtyAndPrice>
                         {watch.qty}
-                      </ProductOrderQtyAndPrice>
-                      <ProductOrderQtyAndPrice>x</ProductOrderQtyAndPrice>
-                      <ProductOrderQtyAndPrice>
+                      </PlaceOrderQtyAndPrice>
+                      <PlaceOrderQtyAndPrice>x</PlaceOrderQtyAndPrice>
+                      <PlaceOrderQtyAndPrice>
                         $ {(watch.qty * watch.price).toFixed(0)}
-                      </ProductOrderQtyAndPrice>
-                    </ProductOrderQtyAndPriceGrid>
-                  </ProductOrderWatchesGrid>
-                  <ProductOrderLine>&nbsp;</ProductOrderLine>
-                </ProductOrderWatchesAndLineGrid>
+                      </PlaceOrderQtyAndPrice>
+                    </PlaceOrderQtyAndPriceGrid>
+                  </PlaceOrderWatchesGrid>
+                  <PlaceOrderLine>&nbsp;</PlaceOrderLine>
+                </PlaceOrderWatchesAndLineGrid>
               ))}
             </>
           )}
-        </ProductOrderDetailsGrid>
+        </PlaceOrderDetailsGrid>
 
         {/* ORDER SUMMARY */}
 
-        <ProductOrderSummaryGrid>
-          <ProductOrderSummaryContentGrid>
-            <ProductOrderSummaryHeader>Order Summary</ProductOrderSummaryHeader>
-            <ProductOrderSummaryLine>&nbsp;</ProductOrderSummaryLine>
-          </ProductOrderSummaryContentGrid>
+        <PlaceOrderSummaryGrid>
+          <PlaceOrderSummaryContentGrid>
+            <PlaceOrderSummaryHeader>Order Summary</PlaceOrderSummaryHeader>
+            <PlaceOrderSummaryLine>&nbsp;</PlaceOrderSummaryLine>
+          </PlaceOrderSummaryContentGrid>
 
-          <ProductOrderSummaryContentGrid>
-            <ProductOrderSummaryParagraphGrid>
-              <ProductOrderSummaryParagraph>
+          <PlaceOrderSummaryContentGrid>
+            <PlaceOrderSummaryParagraphGrid>
+              <PlaceOrderSummaryParagraph>
                 Watches:
-              </ProductOrderSummaryParagraph>
-              <ProductOrderSummaryAmount>${cart.watchesPrice}</ProductOrderSummaryAmount>
-            </ProductOrderSummaryParagraphGrid>
-            <ProductOrderSummaryLine>&nbsp;</ProductOrderSummaryLine>
-          </ProductOrderSummaryContentGrid>
+              </PlaceOrderSummaryParagraph>
+              <PlaceOrderSummaryAmount>${cart.watchesPrice}</PlaceOrderSummaryAmount>
+            </PlaceOrderSummaryParagraphGrid>
+            <PlaceOrderSummaryLine>&nbsp;</PlaceOrderSummaryLine>
+          </PlaceOrderSummaryContentGrid>
 
-          <ProductOrderSummaryContentGrid>
-            <ProductOrderSummaryParagraphGrid>
-              <ProductOrderSummaryParagraph>
+          <PlaceOrderSummaryContentGrid>
+            <PlaceOrderSummaryParagraphGrid>
+              <PlaceOrderSummaryParagraph>
                 Shipping:
-              </ProductOrderSummaryParagraph>
-              <ProductOrderSummaryAmount>${cart.shippingPrice}</ProductOrderSummaryAmount>
-            </ProductOrderSummaryParagraphGrid>
-            <ProductOrderSummaryLine>&nbsp;</ProductOrderSummaryLine>
-          </ProductOrderSummaryContentGrid>
+              </PlaceOrderSummaryParagraph>
+              <PlaceOrderSummaryAmount>${cart.shippingPrice}</PlaceOrderSummaryAmount>
+            </PlaceOrderSummaryParagraphGrid>
+            <PlaceOrderSummaryLine>&nbsp;</PlaceOrderSummaryLine>
+          </PlaceOrderSummaryContentGrid>
 
-          <ProductOrderSummaryContentGrid>
-            <ProductOrderSummaryParagraphGrid>
-              <ProductOrderSummaryParagraph>Tax (5%):</ProductOrderSummaryParagraph>
-              <ProductOrderSummaryAmount>${cart.taxPrice}</ProductOrderSummaryAmount>
-            </ProductOrderSummaryParagraphGrid>
-            <ProductOrderSummaryLine>&nbsp;</ProductOrderSummaryLine>
-          </ProductOrderSummaryContentGrid>
+          <PlaceOrderSummaryContentGrid>
+            <PlaceOrderSummaryParagraphGrid>
+              <PlaceOrderSummaryParagraph>Tax (5%):</PlaceOrderSummaryParagraph>
+              <PlaceOrderSummaryAmount>${cart.taxPrice}</PlaceOrderSummaryAmount>
+            </PlaceOrderSummaryParagraphGrid>
+            <PlaceOrderSummaryLine>&nbsp;</PlaceOrderSummaryLine>
+          </PlaceOrderSummaryContentGrid>
 
-          <ProductOrderSummaryContentGrid>
-            <ProductOrderSummaryParagraphGrid>
-              <ProductOrderSummaryParagraph>
+          <PlaceOrderSummaryContentGrid>
+            <PlaceOrderSummaryParagraphGrid>
+              <PlaceOrderSummaryParagraph>
                 <strong>Total:</strong>
-              </ProductOrderSummaryParagraph>
-              <ProductOrderSummaryAmount>
+              </PlaceOrderSummaryParagraph>
+              <PlaceOrderSummaryAmount>
                 <strong>${cart.totalPrice}</strong>
-              </ProductOrderSummaryAmount>
-            </ProductOrderSummaryParagraphGrid>
-            <ProductOrderSummaryLine>&nbsp;</ProductOrderSummaryLine>
-          </ProductOrderSummaryContentGrid>
+              </PlaceOrderSummaryAmount>
+            </PlaceOrderSummaryParagraphGrid>
+            <PlaceOrderSummaryLine>&nbsp;</PlaceOrderSummaryLine>
+          </PlaceOrderSummaryContentGrid>
 
           <>{error && <Message>{error}</Message>}</>
 
-          <ProductOrderSummaryButton type="button" disabled={cart.cartItems === 0} onClick={placeOrder}>
+          <PlaceOrderSummaryButton type="button" disabled={cart.cartItems === 0} onClick={placeOrder}>
             Place Order
-          </ProductOrderSummaryButton>
-        </ProductOrderSummaryGrid>
+          </PlaceOrderSummaryButton>
+        </PlaceOrderSummaryGrid>
       </PlaceOrderStyles>
     </>
   );

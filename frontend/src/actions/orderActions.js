@@ -30,7 +30,7 @@ import { CART_CLEAR_ITEMS } from "../constants/cartConstants";
         },
       };
   
-      const { data } = await axios.post(`api/orders/add/`, order, config);
+      const { data } = await axios.post(`/api/orders/add/`, order, config);
   
       dispatch({
         type: ORDER_CREATE_SUCCESS,
@@ -74,7 +74,7 @@ import { CART_CLEAR_ITEMS } from "../constants/cartConstants";
         },
       };
   
-      const { data } = await axios.get(`api/orders/${orderId}/`, config);
+      const { data } = await axios.get(`/api/orders/${orderId}/`, config);
   
       dispatch({
         type: ORDER_DETAILS_SUCCESS,
