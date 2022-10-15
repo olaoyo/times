@@ -1,8 +1,8 @@
-import ProfileUpdate from "./profileUpdate/ProfileUpdate.component"
+import Profile from "./profile/Profile.component";
 
 function ProfileScreen() {
   return (
-    <ProfileUpdate />
+      <Profile />
   )
 }
 

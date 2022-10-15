@@ -213,7 +213,7 @@ function Order() {
               <OrderSummaryParagraph>
                 Paid On:
               </OrderSummaryParagraph>
-              <OrderSummaryAmount>{order.paidAt}</OrderSummaryAmount>
+              <OrderSummaryAmount>{order.paidAt.substring(0, 10)}</OrderSummaryAmount>
             </OrderSummaryParagraphGrid>
             ) : (
               <OrderSummaryParagraphGrid>
@@ -229,12 +229,12 @@ function Order() {
           </OrderSummaryContentGrid>
           
           <OrderSummaryContentGrid>
-            {order.isDelivered ? (
+            {order.isDelivrered ? (
               <OrderSummaryParagraphGrid>
               <OrderSummaryParagraph>
                 Delivered On:
               </OrderSummaryParagraph>
-              <OrderSummaryAmount>{order.deliveredAt}</OrderSummaryAmount>
+              <OrderSummaryAmount>{order.deliveredAt.substring(0, 10)}</OrderSummaryAmount>
             </OrderSummaryParagraphGrid>
             ) : (
               <OrderSummaryParagraphGrid>
