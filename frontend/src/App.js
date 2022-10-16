@@ -11,6 +11,7 @@ import Shipping from "./components/routes/shipping/shipping.component";
 import Payment from "./components/routes/payment/payment.component";
 import PlaceOrder from "./components/routes/placeOrder/placeOrder.component";
 import Order from "./components/routes/order/order.component";
+import UserList from "./components/routes/userList/userList.component";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/cart/:productId" element={<Cart />} />
+
+        <Route path="/admin/userlist" element={<UserList />} />
       </Route>
     </Routes>
   );
