@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   UserListStyles,
   UserListGrid,
@@ -9,6 +9,9 @@ import {
   TableHead,
   UserListTableBody,
   TableBody,
+  TableBodyEmail,
+  TableBodyIcon1,
+  TableBodyIcon2,
   UserListLineGrid,
   UserListLine,
 } from "./UserList.styles";
@@ -23,9 +26,22 @@ function UserList() {
   const userList = useSelector((state) => state.userList);
   const { loading, users, error } = userList;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers());
+    } else {
+      navigate("/login")
+    }
+  }, [dispatch, userInfo, navigate]);
+
+  const deleteHandler = (id) => {
+    console.log("Delete:", id);
+  }
 
   return (
     <UserListStyles>
@@ -64,13 +80,15 @@ function UserList() {
               <UserListContentGrid key={user._id}>
                 <UserListTableBody>
                   <TableBody>{user._id}</TableBody>
+
                   <TableBody>{user.name}</TableBody>
-                  <TableBody>{user.email}</TableBody>
-                  <TableBody>
+
+                  <TableBodyEmail>{user.email}</TableBodyEmail>
+
+                  <TableBodyIcon1>
                     {user.isAdmin ? (
                       <span
                         className="material-symbols-outlined"
-                        style={{ color: "#9A836C" }}
                       >
                         done
                       </span>
@@ -82,8 +100,9 @@ function UserList() {
                         close
                       </span>
                     )}
-                  </TableBody>
-                  <TableBody>
+                  </TableBodyIcon1>
+
+                  <TableBodyIcon2>
                     <Link to={`/admin/user/${user._id}`}>
                       <span
                         className="material-symbols-outlined"
@@ -92,12 +111,13 @@ function UserList() {
                         edit
                       </span>
                     </Link>
-                  </TableBody>
-                  <TableBody>
+                  </TableBodyIcon2>
+
+                  <TableBodyIcon2 onClick={() => deleteHandler(user._id)}>
                     <span className="material-symbols-outlined"
-                    style={{ color: "#9A836C" }}
                     >delete</span>
-                  </TableBody>
+                  </TableBodyIcon2>
+
                 </UserListTableBody>
                 <UserListLineGrid>
                 <UserListLine>&nbsp;</UserListLine>

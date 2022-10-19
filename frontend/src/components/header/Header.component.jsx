@@ -33,21 +33,29 @@ function Header() {
           <Link to="/">
             <Logo>TIMES</Logo>
           </Link>
+
           <Link to="/products">
             <NavMenu>WATCHES</NavMenu>
           </Link>
+
+      
           <Link to="/about">
-            <NavMenu>ABOUT US</NavMenu>
-          </Link>
-          <Link to="/products">
-            <NavMenu>STORE</NavMenu>
-          </Link>
+            <NavMenu>ABOUT</NavMenu>
+          </Link>          
+
+          {userInfo && userInfo.isAdmin && (
+          <Link to="/admin">
+            <NavMenu>ADMIN</NavMenu>
+          </Link>)}
+
         </Navigation>
+
         <Cart>
           <Link to="/cart">
             <span className="material-symbols-outlined">shopping_cart</span>
           </Link>
         </Cart>
+
         <User>
           {userInfo ? (
             <>
@@ -73,6 +81,7 @@ function Header() {
             </>
           )}
         </User>
+
       </HeaderStyles>
       <Outlet />
     </>

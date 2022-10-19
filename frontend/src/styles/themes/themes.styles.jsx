@@ -78,6 +78,17 @@ export const theme = {
   },
 
   icons: {
+    xxlarge: {
+      xxl: "12rem", 
+      xl:  "11rem", 
+      l:   "10rem", 
+    },
+    xlarge: {
+      xxl: "9rem", 
+      xl:  "8rem", 
+      l:   "7rem", 
+    },
+
     large: {
       xxl: "6rem", 
       xl:  "5rem", 
