@@ -33,7 +33,7 @@ function Admin() {
         <Link to="/admin/userlist">
             <AdminIconAndTextGrid>
                 <AdminIcon>
-                  <span class="material-symbols-outlined">group</span>
+                  <span className="material-symbols-outlined">group</span>
                 </AdminIcon>
                 <AdminText>Users</AdminText>
             </AdminIconAndTextGrid>
@@ -42,7 +42,7 @@ function Admin() {
         <Link to="/admin/productlist">
             <AdminIconAndTextGrid>
                 <AdminIcon>
-                  <span class="material-symbols-outlined">inventory_2</span>
+                  <span className="material-symbols-outlined">inventory_2</span>
                 </AdminIcon>
                 <AdminText>Products</AdminText>
             </AdminIconAndTextGrid>
@@ -51,7 +51,7 @@ function Admin() {
         <Link to="/admin/orderlist">
             <AdminIconAndTextGrid>
                 <AdminIcon>
-                  <span class="material-symbols-outlined">list_alt</span>
+                  <span className="material-symbols-outlined">list_alt</span>
                 </AdminIcon>
                 <AdminText>Orders</AdminText>
             </AdminIconAndTextGrid>

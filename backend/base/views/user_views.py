@@ -85,3 +85,9 @@ def getUsers(request):
     return Response(serializer.data)
 
 
+@api_view(["DELETE"])
+@permission_classes([IsAdminUser])
+def deleteUser(request, user_id ):
+    userForDeletion = User.objects.get(id=user_id)
+    userForDeletion.delete()
+    return Response("This user has been de-watched from our elite circle")

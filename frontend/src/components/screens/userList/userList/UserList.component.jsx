@@ -18,7 +18,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
-import { listUsers } from "../../../../actions/userActions";
+import { listUsers, deleteUser } from "../../../../actions/userActions";
+
 
 function UserList() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function UserList() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,10 +41,13 @@ function UserList() {
     } else {
       navigate("/login")
     }
-  }, [dispatch, userInfo, navigate]);
+  }, [dispatch, userInfo, navigate, successDelete]);
 
-  const deleteHandler = (id) => {
-    console.log("Delete:", id);
+  const deleteHandler = (userId) => {
+
+    if (window.confirm("Are your certain this memeber is unworthy 🤯")) {
+      dispatch(deleteUser(userId));
+    }
   }
 
   return (
