@@ -110,7 +110,7 @@ function UserList() {
                   </TableBodyIcon1>
 
                   <TableBodyIcon2>
-                    <Link to={`/admin/user/${user._id}`}>
+                    <Link to={`/admin/user/${user._id}/edit`}>
                       <span
                         className="material-symbols-outlined"
                         style={{ color: "#9A836C" }}
