@@ -45,7 +45,7 @@ function UserList() {
 
   const deleteHandler = (userId) => {
 
-    if (window.confirm("Are your certain this memeber is unworthy 🤯")) {
+    if (window.confirm("Are your certain this member is unworthy 🤯")) {
       dispatch(deleteUser(userId));
     }
   }
