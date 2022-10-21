@@ -17,13 +17,19 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
-import { listProducts } from "../../../../actions/productsActions";
+import {
+  listProducts,
+  deleteProduct,
+} from "../../../../actions/productsActions";
 
 function ProductList() {
   const dispatch = useDispatch();
 
   const productsList = useSelector((state) => state.productsList);
   const { loading, products, error } = productsList;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const { loading: loadingDelete, success: successDelete, error: errorDelete } = productDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -36,27 +42,30 @@ function ProductList() {
     } else {
       navigate("/login");
     }
-  }, [dispatch, userInfo, navigate]);
+  }, [dispatch, userInfo, navigate, successDelete]);
 
-  const deleteHandler = (userId) => {
+  const deleteHandler = (watchId) => {
     if (
       window.confirm("Are your certain this watch is not for our elite ⌚️ 🫥")
     ) {
-      //   Delete products
+      dispatch(deleteProduct(watchId));
     }
   };
 
   const createProductHandler = (product) => {
     // Create product
-  }
+  };
 
   return (
     <ProductListStyles>
-      <ProductListGrid>        
-          
-          <ProductListCreateButton onClick={createProductHandler}>
-            <span className="material-symbols-outlined">add_circle</span>
-          </ProductListCreateButton>
+      <ProductListGrid>
+
+        <ProductListCreateButton onClick={createProductHandler}>
+          <span className="material-symbols-outlined">add_circle</span>
+        </ProductListCreateButton>
+
+        {loadingDelete && <Loader />}
+        {errorDelete && <Message>{errorDelete}</Message>}
         
         {loading ? (
           <Loader />
@@ -87,31 +96,26 @@ function ProductList() {
 
             {/* TABLE BODY */}
 
-            {products.map((product) => (
-              <ProductListContentGrid key={product._id}>
+            {products.map((watch) => (
+              <ProductListContentGrid key={watch._id}>
                 <ProductListTableBody>
-                  <TableBody>{product._id}</TableBody>
+                  <TableBody>{watch._id}</TableBody>
 
-                  <TableBody>{product.name}</TableBody>
+                  <TableBody>{watch.name}</TableBody>
 
-                  <TableBodyEmail>${product.price}</TableBodyEmail>
+                  <TableBodyEmail>${watch.price}</TableBodyEmail>
 
-                  <TableBody>{product.brand}</TableBody>
+                  <TableBody>{watch.brand}</TableBody>
 
                   <TableBodyIcon2>
-                    <Link to={`/admin/product/${product._id}/edit`}>
-                      <span
-                        className="material-symbols-outlined"
-                      >
-                        Edit
-                      </span>
+                    <Link to={`/admin/product/${watch._id}/edit`}>
+                      <span className="material-symbols-outlined">Edit</span>
                     </Link>
                   </TableBodyIcon2>
 
-                  <TableBodyIcon2 onClick={() => deleteHandler(product._id)}>
+                  <TableBodyIcon2 onClick={() => deleteHandler(watch._id)}>
                     <span className="material-symbols-outlined">Delete</span>
                   </TableBodyIcon2>
-
                 </ProductListTableBody>
                 <ProductListLineGrid>
                   <ProductListLine>&nbsp;</ProductListLine>
