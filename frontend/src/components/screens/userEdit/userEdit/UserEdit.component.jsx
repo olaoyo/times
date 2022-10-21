@@ -14,7 +14,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
-import { getUserDetails } from "../../../../actions/userActions";
+import { getUserDetails, updateUser } from "../../../../actions/userActions";
+import { USER_UPDATE_RESET } from "../../../../constants/userConstants";
 
 function UserEdit() {
   const { userId } = useParams();
@@ -31,24 +32,37 @@ function UserEdit() {
   const userDetails = useSelector((state) => state.userDetails);
   const { user, loading, error } = userDetails;
 
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = userUpdate;
+
   useEffect(() => {
-    if (!user.name || user._id !== +userId) {
-      dispatch(getUserDetails(userId));
+    if (successUpdate) {
+      dispatch({ type: USER_UPDATE_RESET });
+      navigate("/admin/userlist");
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsAdmin(user.isAdmin);
+
+      if (!user.name || user._id !== +userId) {
+        dispatch(getUserDetails(userId));
+      } else {
+        setName(user.name);
+        setEmail(user.email);
+        setIsAdmin(user.isAdmin);
+      }
     }
-  }, [dispatch, user._id, user.email, user.isAdmin, user.name, userId]);
+  }, [dispatch, user._id, user.email, user.isAdmin, user.name, userId, navigate, successUpdate]);
 
   const submitHandler = (event) => {
     event.preventDefault();
+    dispatch(updateUser({ _id: user._id, name, email, isAdmin }))
   };
   return (
     <>
       <UserEditStyles>
         {/* <Link to="/admin/userlist"><UserEditHeader>Go Back</UserEditHeader></Link> */}
         <UserEditHeader>Edit User</UserEditHeader>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message>{errorUpdate}</Message>}
+        
         {loading ? (
           <Loader />
         ) : error ? (
