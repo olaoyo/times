@@ -12,7 +12,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
-import { listProductDetails } from "../../../../actions/productsActions";
+import { listProductDetails, updateProduct } from "../../../../actions/productsActions";
+import { PRODUCT_UPDATE_RESET } from "../../../../constants/productsConstants";
+
 
 function ProductEdit() {
   const { productId } = useParams();
@@ -32,26 +34,45 @@ function ProductEdit() {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const { loading: loadingUpdate, success: successupdate, error: errorUpdate } = productUpdate;
+
 
   useEffect(() => {
-    if (!product.name || product._id !== +productId) {
-      dispatch(listProductDetails(productId));
+
+    if (successupdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET})
+      navigate("/admin/productlist")
     } else {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image);
-      setBrand(product.brand);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setDescription(product.description);      
+      if (!product.name || product._id !== +productId) {
+        dispatch(listProductDetails(productId));
+      } else {
+        setName(product.name);
+        setPrice(product.price);
+        setImage(product.image);
+        setBrand(product.brand);
+        setCategory(product.category);
+        setCountInStock(product.countInStock);
+        setDescription(product.description);      
+      }
     }
-  }, [ dispatch, /*product*/ productId, navigate, product._id, product.name, product.price, product.image, product.brand, product.category, product.countInStock, product.description ]);
+    
+  }, [ dispatch, /*product*/ productId, navigate, product._id, product.name, product.price, product.image, product.brand, product.category, product.countInStock, product.description, successupdate ]);
 
   
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // Update product
+    dispatch(updateProduct({
+      _id: productId,
+      name,
+      price,
+      image,
+      brand,
+      category,
+      countInStock,
+      description
+    }))
   };
 
 
@@ -60,6 +81,8 @@ function ProductEdit() {
       <ProductEditStyles>
         {/* <Link to="/admin/productlist"><ProductEditHeader>Go Back</ProductEditHeader></Link> */}
         <ProductEditHeader>Edit Product</ProductEditHeader>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message>{errorUpdate}</Message>}
 
         {loading ? (
           <Loader />
@@ -146,7 +169,7 @@ function ProductEdit() {
             </ProductEditInputAndLabelGrid>
 
 
-            <ProductEditButton type="submit">Update</ProductEditButton>
+            <ProductEditButton type="submit" onClick={submitHandler}>Update</ProductEditButton>
           </ProductEditForm>
         )}
       </ProductEditStyles>
