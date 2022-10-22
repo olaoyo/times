@@ -17,10 +17,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../loader/Loader.component";
 import Message from "../../../message/Message.component";
-import {
-  listProducts,
-  deleteProduct,
-} from "../../../../actions/productsActions";
+import { listProducts, deleteProduct, createProduct } from "../../../../actions/productsActions";
+import { PRODUCT_CREATE_RESET } from "../../../../constants/productsConstants";
 
 function ProductList() {
   const dispatch = useDispatch();
@@ -31,18 +29,29 @@ function ProductList() {
   const productDelete = useSelector((state) => state.productDelete);
   const { loading: loadingDelete, success: successDelete, error: errorDelete } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const { loading: loadingCreate, success: successCreate, error: errorCreate, product: createdProduct } = productCreate;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
+    dispatch({ type: PRODUCT_CREATE_RESET })
+
+    if (!userInfo.isAdmin) {
+        navigate("/login");
+      
+    } 
+    
+    if (successCreate)  {
+      navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      navigate("/login");
+      dispatch(listProducts());
     }
-  }, [dispatch, userInfo, navigate, successDelete]);
+    
+  }, [dispatch, userInfo, navigate, successDelete, createdProduct, successCreate]);
 
   const deleteHandler = (watchId) => {
     if (
@@ -52,21 +61,23 @@ function ProductList() {
     }
   };
 
-  const createProductHandler = (product) => {
-    // Create product
+  const createProductHandler = () => {
+    dispatch(createProduct())
   };
 
   return (
     <ProductListStyles>
       <ProductListGrid>
-
         <ProductListCreateButton onClick={createProductHandler}>
           <span className="material-symbols-outlined">add_circle</span>
         </ProductListCreateButton>
 
         {loadingDelete && <Loader />}
         {errorDelete && <Message>{errorDelete}</Message>}
-        
+
+        {loadingCreate && <Loader />}
+        {errorCreate && <Message>{errorCreate}</Message>}
+
         {loading ? (
           <Loader />
         ) : error ? (
