@@ -15,6 +15,7 @@ import UserList from "./components/routes/userList/userList.component";
 import UserEdit from "./components/routes/userEdit/userEdit.component";
 import Admin from "./components/routes/admin/admin.component";
 import ProductList from "./components/routes/productList/productList.component";
+import ProductEdit from "./components/routes/productEdit/productEdit.component";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/admin/user/:userId/edit" element={<UserEdit />} />
 
         <Route path="/admin/productlist" element={<ProductList />} />
+        <Route path="/admin/product/:productId/edit" element={<ProductEdit />} />
       </Route>
     </Routes>
   );
