@@ -67,3 +67,31 @@ def deleteProduct(request, watch_id):
     product = Product.objects.get(_id=watch_id)
     product.delete()
     return Response("This watch was donated as a charitable gift ⌚️🥰")
+
+
+@api_view(["POST"])
+def uploadImage(request):
+    data = request.data  
+
+    product_id = data["product_id"]
+    product = Product.objects.get(_id=product_id)
+
+    product.image = request.FILES.get("image")
+    # product.imageDetails = request.FILES.get("imageDetails")
+    product.save()
+
+    return Response("Watch image was uploaded")
+
+
+@api_view(["POST"])
+def uploadImageDetails(request):
+    data = request.data  
+
+    product_id = data["product_id"]
+    product = Product.objects.get(_id=product_id)
+
+    product.imageDetails = request.FILES.get("imageDetails")
+    product.save()
+
+    return Response("Watch image details were uploaded")
+

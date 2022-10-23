@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ProductEditStyles,
@@ -22,10 +23,12 @@ function ProductEdit() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0); 
   const [image, setImage] = useState("");
+  const [imageDetails, setImageDetails] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -75,6 +78,59 @@ function ProductEdit() {
     }))
   };
 
+  const uploadFileHandler = async (event) => {
+    const file = event.target.files[0]
+    const formData = new FormData()
+
+    formData.append("image", file)
+    formData.append("product_id", productId)
+
+    setUploading(true)
+
+    try {
+      const config = {
+        header: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
+
+      const { data } = await axios.post("/api/products/upload/", formData, config)
+
+      setImage(data);
+      setUploading(false);
+
+    } catch (error) {
+        setUploading(false);
+    }
+  }
+
+
+  const uploadFileDetailsHandler = async (event) => {
+    const file = event.target.files[0]
+    const formData = new FormData()
+
+    formData.append("imageDetails", file)
+    formData.append("product_id", productId)
+
+    setUploading(true)
+
+    try {
+      const config = {
+        header: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
+
+      const { data } = await axios.post("/api/products/upload-details/", formData, config)
+
+      setImageDetails(data);
+      setUploading(false);
+
+    } catch (error) {
+        setUploading(false);
+    }
+  }
+  
 
   return (
     <>
@@ -122,6 +178,39 @@ function ProductEdit() {
                 onChange={(event) => setImage(event.target.value)}
                 id="image"
               />
+
+              <ProductEditInput 
+                type="file"
+                label="Upload Image"
+                placeholder="Choose File"
+                custom
+                id="image-file"
+                onChange={uploadFileHandler}
+              />
+              {uploading && <Loader />}
+
+            </ProductEditInputAndLabelGrid>
+
+            <ProductEditInputAndLabelGrid>
+              <ProductEditLabel>Image Details</ProductEditLabel>
+              <ProductEditInput
+                type="text"
+                placeholder="Enter The Watch Details Image"
+                value={imageDetails}
+                onChange={(event) => setImageDetails(event.target.value)}
+                id="image"
+              />
+
+              <ProductEditInput 
+                type="file"
+                label="Upload Image"
+                placeholder="Choose File"
+                custom
+                id="image-file"
+                onChange={uploadFileDetailsHandler}
+              />
+              {uploading && <Loader />}
+
             </ProductEditInputAndLabelGrid>
 
             <ProductEditInputAndLabelGrid>
