@@ -100,18 +100,20 @@ function OrderList() {
                     )}
                   </TableBody>
                   
-                  <TableBodyIcon>
-                    {order.isDelivrered ? (
+                  <TableBody>
+                    {order.isDelivered ? (
                       order.deliveredAt.substring(0, 10)
                     ) : (
-                      <span
-                        className="material-symbols-outlined"
-                        // style={{ color: "#9A836C" }}
-                      >
-                        close
-                      </span>
+                      <TableBodyIcon>
+                        <span
+                          className="material-symbols-outlined"
+                          // style={{ color: "#9A836C" }}
+                        >
+                          close
+                        </span>
+                      </TableBodyIcon>
                     )}
-                  </TableBodyIcon>
+                  </TableBody>
 
                   <Link to={`/order/${order._id}`}>
                     <OrderListButton>

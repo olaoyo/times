@@ -110,3 +110,17 @@ def updateOrderToPaid(request, order_id):
     order.save()
 
     return Response("We appreciate your taste in ⌚. Order was paid")
+
+
+
+@api_view(["PUT"])
+@permission_classes([IsAdminUser])
+def updateOrderToDelivered(request, order_id):
+    order = Order.objects.get(_id=order_id)
+
+    order.isDelivered = True
+    order.deliveredAt = datetime.now()  
+    order.save()
+
+    return Response("Thanks for purchasing a ⌚. Order was delivered")
+

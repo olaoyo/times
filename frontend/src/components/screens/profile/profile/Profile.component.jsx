@@ -187,7 +187,7 @@ function Profile() {
                           {order.isPaid ? order.paidAt.substring(0, 10) : "No"}
                         </TableBody>
                         <TableBody>
-                          {order.isDelivrered
+                          {order.isDelivered
                             ? order.deliveredAt.substring(0, 10)
                             : "Pending"}
                         </TableBody>

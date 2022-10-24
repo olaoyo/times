@@ -187,3 +187,24 @@ export const OrderSummaryPaymentGrid = styled.div`
   padding: 2.3rem 3.5rem;
 `;
 
+export const OrderDeliveredButton = styled.button`
+  width: 42.7rem;
+  height: 5.4rem;
+  color: ${({ theme }) => theme.colors.black.three};
+  font-size: ${({ theme }) => theme.fontSizes.paragraphs.p2};
+  font-weight: 600;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  border: none;
+  justify-self: center;
+  margin-top: 7rem;
+  background: linear-gradient(
+    261.88deg,
+    ${({ theme }) => theme.colors.gold.two} -5.03%,
+    ${({ theme }) => theme.colors.gold.three} 98.82%
+  );
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
